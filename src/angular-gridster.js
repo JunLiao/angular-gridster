@@ -1879,7 +1879,7 @@
 						var key;
 						if (typeof options[aspect] === 'string') {
 							key = options[aspect];
-						} else if (typeof options[aspect.toLowerCase()] === 'string') {
+						} else if (typeof options[aspect.toLowerCase()] === 'string' || typeof options[aspect.toLowerCase()] === 'boolean') {
 							key = options[aspect.toLowerCase()];
 						} else if (optionsKey) {
 							key = $parse(optionsKey + '.' + aspect);
@@ -1905,6 +1905,13 @@
 
 					for (var i = 0, l = aspects.length; i < l; ++i) {
 						aspectFn(aspects[i]);
+					}
+
+					if (item.resizable === undefined) {
+						item.resizable = options.resizable === undefined ? gridster.resizable.enabled : options.resizable;
+					}
+					if (item.draggable === undefined) {
+						item.draggable = options.draggable === undefined ? gridster.draggable.enabled : options.draggable;
 					}
 
 					scope.$broadcast('gridster-item-initialized', [item.sizeY, item.sizeX, item.getElementSizeY(), item.getElementSizeX()]);
