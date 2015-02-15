@@ -1852,19 +1852,27 @@
 								minSizeX: 0,
 								minSizeY: 0,
 								maxSizeX: null,
-								maxSizeY: null
+								maxSizeY: null,
+								resizable: false,
+								draggable: false
 							};
 							$optionsGetter.assign(scope, options);
 						}
 					} else {
 						options = attrs;
 					}
+					if (options.resizable === undefined) {
+						options.resizable = gridster.resizable.enabled;
+					}
+					if (options.draggable === undefined) {
+						options.draggable = gridster.draggable.enabled;
+					}
 
 					item.init($el, gridster);
 
 					$el.addClass('gridster-item');
 
-					var aspects = ['minSizeX', 'maxSizeX', 'minSizeY', 'maxSizeY', 'sizeX', 'sizeY', 'row', 'col'],
+					var aspects = ['minSizeX', 'maxSizeX', 'minSizeY', 'maxSizeY', 'sizeX', 'sizeY', 'row', 'col', 'resizable', 'draggable'],
 						$getters = {};
 
 					var aspectFn = function(aspect) {
@@ -1890,7 +1898,7 @@
 
 						// initial set
 						var val = $getters[aspect](scope);
-						if (typeof val === 'number') {
+						if (typeof val === 'number' || typeof val === 'boolean') {
 							item[aspect] = val;
 						}
 					};
@@ -1940,19 +1948,19 @@
 					var resizable = new GridsterResizable($el, scope, gridster, item, options);
 
 					scope.$on('gridster-draggable-changed', function() {
-						draggable.toggle(!gridster.isMobile && gridster.draggable && gridster.draggable.enabled);
+						draggable.toggle(!gridster.isMobile && gridster.draggable && gridster.draggable.enabled && item.draggable);
 					});
 					scope.$on('gridster-resizable-changed', function() {
-						resizable.toggle(!gridster.isMobile && gridster.resizable && gridster.resizable.enabled);
+						resizable.toggle(!gridster.isMobile && gridster.resizable && gridster.resizable.enabled && item.resizable);
 					});
 					scope.$on('gridster-resized', function() {
-						resizable.toggle(!gridster.isMobile && gridster.resizable && gridster.resizable.enabled);
+						resizable.toggle(!gridster.isMobile && gridster.resizable && gridster.resizable.enabled && item.resizable);
 					});
 					scope.$watch(function() {
 						return gridster.isMobile;
 					}, function() {
-						resizable.toggle(!gridster.isMobile && gridster.resizable && gridster.resizable.enabled);
-						draggable.toggle(!gridster.isMobile && gridster.draggable && gridster.draggable.enabled);
+						resizable.toggle(!gridster.isMobile && gridster.resizable && gridster.resizable.enabled && item.resizable);
+						draggable.toggle(!gridster.isMobile && gridster.draggable && gridster.draggable.enabled && item.draggable);
 					});
 
 					function whichTransitionEvent() {
