@@ -1125,6 +1125,19 @@
 
 			value = Math.max(Math.min(value, max), min);
 
+			if (this.gridster.resizable.invalidSizes) {
+				var invalidSizes = [];
+				if (key === 'X') {
+					invalidSizes = this.gridster.resizable.invalidSizes.width;
+				} else if (key === 'Y') {
+					invalidSizes = this.gridster.resizable.invalidSizes.height;
+				}
+				if (invalidSizes && invalidSizes.length && invalidSizes.indexOf(value) >= 0) {
+					this[camelCase] = this['old' + titleCase];
+					return false;
+				}
+			}
+
 			var changed = (this[camelCase] !== value || (this['old' + titleCase] && this['old' + titleCase] !== value));
 			this['old' + titleCase] = this[camelCase] = value;
 
@@ -1151,7 +1164,7 @@
 		/**
 		 * Sets the items sizeX property
 		 *
-		 * @param {number} rows
+		 * @param {number} columns
 		 */
 		this.setSizeX = function(columns, preventMove) {
 			return this.setSize('X', columns, preventMove);
@@ -1776,6 +1789,14 @@
 
 				var handles = [];
 				var handlesOpts = gridster.resizable.handles;
+				var invalidSizeWidths = [];
+				var invalidSizeHeights = [];
+				if (gridster.resizable.invalidSizes && gridster.resizable.invalidSizes.width) {
+					invalidSizeWidths = gridster.resizable.invalidSizes.width;
+				}
+				if (gridster.resizable.invalidSizes && gridster.resizable.invalidSizes.height) {
+					invalidSizeHeights = gridster.resizable.invalidSizes.height;
+				}
 				if (typeof handlesOpts === 'string') {
 					handlesOpts = gridster.resizable.handles.split(',');
 				}
