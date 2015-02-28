@@ -95,7 +95,7 @@ module.exports = function(grunt) {
 					].join('\n')
 				},
 				files: {
-					'dist/angular-gridster.min.js': ['src/angular-gridster.js']
+					'dist/angular-gridster.min.js': ['src/angular-gridster.js', 'src/angular-gridster-*.js']
 				}
 			}
 		},

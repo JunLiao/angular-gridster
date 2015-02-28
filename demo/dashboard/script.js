@@ -3,11 +3,21 @@ angular.module('app')
 .controller('DashboardCtrl', ['$scope', '$timeout',
 	function($scope, $timeout) {
 		$scope.gridsterOptions = {
-			margins: [20, 20],
-			columns: 4,
+			columns: 12,
+			rowHeight: 200,
 			draggable: {
 				handle: 'h3'
-			}
+			},
+			resizable: {
+				invalidSizes: {
+					width: [5, 7, 9, 10, 11],
+					height: [3, 5]
+				}
+			},
+			maxSizeY: 6,
+			minSizeY: 2,
+			maxSizeX: 12,
+			minSizeX: 4
 		};
 
 		$scope.dashboards = {
@@ -17,15 +27,21 @@ angular.module('app')
 				widgets: [{
 					col: 0,
 					row: 0,
-					sizeY: 1,
-					sizeX: 1,
+					sizeY: 2,
+					sizeX: 4,
 					name: "Widget 1"
 				}, {
-					col: 2,
-					row: 1,
-					sizeY: 1,
-					sizeX: 1,
+					col: 4,
+					row: 0,
+					sizeY: 2,
+					sizeX: 4,
 					name: "Widget 2"
+				}, {
+					col: 8,
+					row: 0,
+					sizeY: 2,
+					sizeX: 4,
+					name: "Widget 3"
 				}]
 			},
 			'2': {
