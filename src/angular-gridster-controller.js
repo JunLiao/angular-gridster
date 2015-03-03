@@ -24,7 +24,7 @@ angular.module('gridster')
 			$timeout(function() {
 				flag = false;
 				if (gridster.loaded) {
-					gridster.floatItems();
+					gridster.floatItemsUp();
 				}
 				gridster.updateHeight(gridster.movingItem ? gridster.movingItem.sizeY : 0);
 			});
@@ -386,9 +386,9 @@ angular.module('gridster')
 		};
 
 		/**
-		 * Moves all items up and left as much as possible
+		 * Moves all items up as much as possible
 		 */
-		this.floatItems = function() {
+		this.floatItemsUp = function() {
 			if (this.floating === false) {
 				return;
 			}
@@ -401,40 +401,8 @@ angular.module('gridster')
 					var item = columns[colIndex];
 					if (item) {
 						this.floatItemUp(item);
-						this.floatItemLeft(item);
 					}
 				}
-			}
-		};
-
-		/**
-		 * Float an item left to the most suitable column
-		 *
-		 * @param {object} item The item to move
-		 */
-		this.floatItemLeft = function(item) {
-			if (this.floating === false) {
-				return;
-			}
-			var colIndex = item.col,
-				sizeY = item.sizeY,
-				sizeX = item.sizeX,
-				bestRow = null,
-				bestColumn = null,
-				rowIndex = item.row;
-			var items;
-
-			while (colIndex > -1) {
-				items = this.getItems(rowIndex, colIndex, sizeX, sizeY, item);
-				if (items.length !== 0) {
-					break;
-				}
-				bestRow = rowIndex;
-				bestColumn = colIndex;
-				--colIndex;
-			}
-			if (bestColumn !== null) {
-				this.putItem(item, bestRow, bestColumn);
 			}
 		};
 

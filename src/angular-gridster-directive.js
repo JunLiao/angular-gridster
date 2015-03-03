@@ -167,7 +167,7 @@ angular.module('gridster')
 					// allow a little time to place items before floating up
 					$timeout(function() {
 						scope.$watch('gridster.floating', function() {
-							gridster.floatItems();
+							gridster.floatItemsUp();
 						});
 						gridster.loaded = true;
 					}, 100);
