@@ -291,7 +291,6 @@ angular.module('gridster')
 			this.grid[row][column] = item;
 
 			if (this.movingItem === item) {
-				this.floatItemLeft(item);
 				this.floatItemUp(item);
 			}
 			this.layoutChanged();
