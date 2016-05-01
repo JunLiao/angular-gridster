@@ -34,7 +34,7 @@ angular.module('gridster')
 				}
 
 				// exit, if the target has it's own click event
-				if (angular.element(e.target).attr('onclick') || angular.element(e.target).attr('ng-click')) {
+				if (angular.element(e.target).attr('onclick') || angular.element(e.target).attr('ng-click') || angular.element(e.target).attr('ng-dblclick')) {
 					return false;
 				}
 
